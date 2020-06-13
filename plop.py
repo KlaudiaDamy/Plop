@@ -39,6 +39,7 @@ class Plop:
 def main():
     plop = Plop()
     plop.start();
+    print ("tld heidy")
     
 if __name__ == '__main__':
     main()
