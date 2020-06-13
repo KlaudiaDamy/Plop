@@ -17,6 +17,16 @@ class Plop:
         button = Button((255, 255, 255), 30, 30)
         button_2 = Button((255, 0, 255), 90, 30)
 
+	button_list = []
+	x=30
+
+	for i in range(5):
+		if i == 0:
+			button_list.append(Button((255,x,255),x,30))
+		else:
+			x+=60
+			button_list.append(Button((255,x,255),x,30))
+
         while not self.done:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -30,8 +40,9 @@ class Plop:
 
             # Draw things before line #24
             screen.fill((0, 0, 0))
-            pygame.draw.rect(screen, button.get_color(), button)
-            pygame.draw.rect(screen, button_2.get_color(), button_2)
+			for button in button_list:
+				pygame.draw.rect(screen, button.get_color(), button)
+            
             # to refresh screen
             self.window.flip()
             self.clock.tick(60)
