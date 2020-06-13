@@ -11,3 +11,7 @@ class Button (pygame.Rect):
 
     def get_color(self):
         return self.color
+
+    def get_pos(self):
+        return self.pos_x, self.pos_y
+
