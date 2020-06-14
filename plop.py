@@ -11,24 +11,35 @@ class Plop:
         self.window = pygame.display
         self.window.set_caption("Plop v1", "Plop")
         self.clock = pygame.time.Clock()
+        self.button_list = [[], [], [], [], []]
 
-        
-    def start(self):
+    def init_game(self):
         x = 30
         y = 30
-        screen = self.window.set_mode((self.width, self.height))
-        button_list = [[], [], [], [], []]
 
         for i in range(5):
             for j in range(5):
                 if i == 0 and j == 0:
-                    button_list[i].append(Button(get_random_color(), x, y))
+                    self.button_list[i].append(Button(get_random_color(), x, y))
                     x += 60
                 else:
-                    button_list[i].append(Button(get_random_color(), x, y))
+                    self.button_list[i].append(Button(get_random_color(), x, y))
                     x += 60
             x = 30
             y += 60
+
+    def draw_board(self, screen, button_list):
+        for i in range(5):
+            for j in range(5):
+                button = button_list[i][j]
+                pygame.draw.rect(screen, button.get_color(), button)
+
+
+    def start(self):
+        screen = self.window.set_mode((self.width, self.height))
+
+        # Build up the board
+        self.init_game()
 
         while not self.done:
             for event in pygame.event.get():
@@ -41,13 +52,9 @@ class Plop:
                     if button_2.collidepoint(event.pos):
                         print (button_2.get_color())
 
-            # Draw things before line #24
             screen.fill((0, 0, 0))
-            for i in range(5):
-                for j in range(5):
-                    button = button_list[i][j]
-                    pygame.draw.rect(screen, button.get_color(), button)
-            
+            self.draw_board(screen, self.button_list)
+            # draw before this line 
             # to refresh screen
             self.window.flip()
             self.clock.tick(60)
